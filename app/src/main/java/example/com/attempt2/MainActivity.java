@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         imageViewSlide = findViewById(R.id.album_cover_slide);
         textTitleMain = findViewById(R.id.song_title_main);
         textTitleSlide = findViewById(R.id.song_title_slide);
+        textTimeEnd = findViewById(R.id.timeEnd);
+
+        textTimeStart = findViewById(R.id.timeStart);
         seekBar = findViewById(R.id.seekBar);
         setSeekBar();
 
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     if (cursor!=null && cursor.moveToFirst()){
                         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
                         if (path==null){
-                            thispath = Uri.parse("android.resource://"+BuildConfig.APPLICATION_ID+"drawable/ic_audiotrack_black_24dp");
+                            thispath = Uri.parse("android.resource://"+BuildConfig.APPLICATION_ID+"/drawable/ic_audiotrack_black_24dp");
                         }
                         else {
                             thispath = Uri.parse(path);
@@ -224,6 +227,11 @@ public class MainActivity extends AppCompatActivity {
             playIntent = new Intent(this,MusicService.class);
             bindService(playIntent,musicConnection,Context.BIND_AUTO_CREATE);
             startService(playIntent);
+
+        }
+        else {
+         Log.i("fddf","errorseen");
+
         }
     }
 
@@ -233,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         musicSrv.setSong(i);
         musicSrv.playSong();
         updateUI(i);
-        Log.i("RRRR","msh"+i);
     }
 
     private void updateUI(int i) {
